@@ -11,12 +11,5 @@ script to automatize some boring and repetitive process of copy and paste comman
 ```
 
 ## usage
-```
-➜  ~ krbo 10.0.0.1 example.com administrator mypassword
-➜  ~ asrep 10.0.0.1 example.com
-➜  ~ krbnum 10.0.0.1 example.com
-➜  ~ smbc example.com user password 10.0.0.1
-➜  ~ ldapdump user password example.com 10.0.0.1
-➜  ~ map 10.0.0.1
-➜  ~ gw administrator example.com password targetuser 10.0.0.1
-```
+
+<img width="1445" height="329" alt="image" src="https://github.com/user-attachments/assets/872cba01-677b-404d-a73e-5d53c03d0f7a" />
